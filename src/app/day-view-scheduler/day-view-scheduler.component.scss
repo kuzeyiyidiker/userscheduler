@@ -1,0 +1,72 @@
+.event {
+    cursor: pointer;
+    font-size: 13px;
+    border-radius: 4px;
+    background: #ffffff;
+    margin-bottom: 15px;
+    padding: 10px;
+    margin-left: 40px;
+    font-family: "Roboto";
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    position: relative;
+    border-left: 5px solid blue;
+    &.old {
+        border-left: 5px solid #b31c1c;
+        .event-name {
+            text-decoration: line-through;
+        }
+    }
+    &.completed {
+        border-left: 5px solid #1cb349;
+    }
+    &::before {
+        content: "";
+        width: 15px;
+        height: 15px;
+        border: 2px solid #2468ff;
+        position: absolute;
+        border-radius: 50%;
+        left: -47px;
+        top: 0px;
+    }
+    .event-date,
+    .event-note {
+        font-weight: 300;
+        font-size: 13px;
+    }
+    .event-name {
+        font-size: 16px;
+    }
+    .event-time {
+        font-size: 14px;
+        color: #2f71c5;
+        font-family: "Oswald";
+    }
+    .ng-fa-icon {
+        color: #353535;
+        font-size: 13px;
+    }
+    .event-status {
+        font-weight: bold;
+
+        .fail-icon {
+            color: #b31c1c !important;
+        }
+        .success-icon {
+            color: #1cb349 !important;
+        }
+    }
+}
+
+
+
+.wrapper:before {
+    content: "";
+    border-left: 2px dotted #f3f3f3;
+    width: 2px;
+    min-height: 100vh;
+    position: absolute;
+    left: 20px;
+    top: 53px;
+}

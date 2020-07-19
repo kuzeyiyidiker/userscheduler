@@ -1,0 +1,40 @@
+<ngb-alert *ngIf="events.length == 0" [type]="'info'" [dismissible]="false">Relax! There are no more tasks to complete.
+</ngb-alert>
+
+<div class="wrapper" *ngIf="events?.length > 0">
+
+    <div class="event" *ngFor="let event of events"
+        [ngClass]="{'old': event.endDate < today, 'completed': event.isCompleted}">
+        <div class="event-body" (click)="onEventClick(event)">
+            <span class="event-time">{{event.startHour}} - {{event.endHour}}</span>
+            <p class="mb-1 event-name" [ngClass]="{'completed': event.isCompleted}">{{event.name}}</p>
+            <p *ngIf="event.note" class="event-note mb-0 mt-2">
+                <fa-icon [icon]="faStickyNote"></fa-icon>
+                {{event.note}}
+            </p>
+
+            <div class="event-status" *ngIf="event.isCompleted">
+                <fa-icon class="success-icon" [icon]="faCheckCircle"></fa-icon>
+                <span>
+                    Done!
+                </span>
+            </div>
+            <div class="event-status" *ngIf="event.endDate < today && !event.isCompleted">
+                <fa-icon class="fail-icon" [icon]="faExclamationCircle"></fa-icon>
+                <span>
+                    Failed!
+                </span>
+            </div>
+        </div>
+
+        <div *ngIf="!event.isCompleted" class="d-flex event-actions">
+            <button *ngIf="event.endDate >= today" class="btn-complete" (click)="markAsCompleted(event)" placement="top"
+                ngbTooltip="Mark as completed">
+                <fa-icon [icon]="faCheckCircle"></fa-icon>
+            </button>
+            <button class="btn-delete" (click)="removeEvent(event)" placement="top" ngbTooltip="Remove">
+                <fa-icon [icon]="faTrash"></fa-icon>
+            </button>
+        </div>
+    </div>
+</div>

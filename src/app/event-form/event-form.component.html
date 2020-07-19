@@ -1,0 +1,68 @@
+<form #form="ngForm" class="event-form">
+    <div class="form-group">
+        <input type="text" class="form-control" name="name" #name="ngModel" [(ngModel)]="userEvent.name"
+            placeholder="Event name" required>
+        <span *ngIf="name.dirty && name.invalid" class="text-danger mt-2">This field is required!</span>
+    </div>
+    <div class="form-group d-flex">
+        <div class="form-group hidden">
+            <div class="input-group">
+                <input name="datepicker" class="form-control" ngbDatepicker #datepicker="ngbDatepicker"
+                    [autoClose]="'outside'" (dateSelect)="onDateSelection($event)" [displayMonths]="2" [dayTemplate]="t"
+                    outsideDays="hidden" [startDate]="fromDate!">
+                <ng-template #t let-date let-focused="focused">
+                    <span class="custom-day" [class.focused]="focused" [class.range]="isRange(date)"
+                        [class.faded]="isHovered(date) || isInside(date)" (mouseenter)="hoveredDate = date"
+                        (mouseleave)="hoveredDate = null">
+                        {{ date.day }}
+                    </span>
+                </ng-template>
+            </div>
+        </div>
+        <div class="form-group w-100">
+            <div class="input-group">
+                <input #dpFromDate class="form-control" placeholder="yyyy-mm-dd" name="dpFromDate"
+                    [value]="formatter.format(fromDate)+'  /  '+formatter.format(toDate)"
+                    (input)="fromDate = validateInput(fromDate, dpFromDate.value)">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary calendar" (click)="datepicker.toggle()" type="button">
+                        <fa-icon [icon]="faCalendarAlt"></fa-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <span *ngIf="!fromDate && !toDate" class="text-danger mt-2">This field is required!</span>
+
+    <div class="form-group d-flex">
+        <div class="form-group mr-2">
+            <label>Start Hour</label>
+            <ngb-timepicker required name="startHour" #startHour="ngModel" [(ngModel)]="timeStart" [spinners]="false" [meridian]="false"></ngb-timepicker>
+    
+            <span *ngIf="startHour.dirty && startHour.invalid" class="text-danger mt-2">This field is
+                required!</span>
+
+        </div>
+        <div class="form-group">
+            <label>End Hour</label>
+            <ngb-timepicker required name="endHour" #endHour="ngModel" [(ngModel)]="timeEnd" [spinners]="false" [meridian]="false"></ngb-timepicker>
+            <span *ngIf="endHour.dirty && endHour.invalid" class="text-danger mt-2">This field is
+                required!</span>
+
+        </div>
+    </div>
+    <div class="form-group">
+        <textarea name="note" [(ngModel)]="userEvent.note" rows="4" cols="20"></textarea>
+    </div>
+</form>
+<button *ngIf="userEvent.id" (click)="onMarkAsCompleted()" class="float-left btn btn-success">
+    Complete
+</button>
+<div class="d-flex justify-content-end align-items-center">
+    <button  [disabled]="form.invalid" class="btn btn-primary" (click)="onSaveClick()">
+        Save
+    </button>
+    <button *ngIf="userEvent.id" (click)="onDeleteClick()" class="ml-2 btn btn-danger">
+        Delete
+    </button>
+</div>

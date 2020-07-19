@@ -1,0 +1,31 @@
+.btn-nav {
+    border-radius: 20px;
+    width: 100px;
+}
+
+.toolbar {
+    border-bottom: 2px solid blue;
+    .selected-date {
+        font-family: "Oswald";
+    }
+
+    .view-type {
+        .btn-primary {
+            background: #fff;
+            color: #007bff;
+            border: 0;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+            &:focus {
+                outline: none !important;
+                box-shadow: none !important;
+            }
+            &.active {
+                background: #007bff;
+                color: #fff;
+                border: 2px solid;
+                border-bottom: 0;
+            }
+        }
+    }
+}

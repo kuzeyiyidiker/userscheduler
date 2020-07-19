@@ -1,0 +1,55 @@
+<div class="row flex-nowrap">
+    <div class="col-12" *ngIf="showEmptyAlert">
+        <ngb-alert  [type]="'info'" [dismissible]="false">Relax! There are no more tasks to
+            complete.</ngb-alert>
+    </div>
+
+    <div *ngFor="let day of weekDays">
+        <div *ngIf="day.events?.length > 0" class="col-4">
+            <div class="header">
+                {{day.date | date: 'EEEE'}}
+            </div>
+            <div class="event" *ngFor="let event of day.events" (click)="onEventClick(event)"
+                [ngClass]="{'old': event.endDate < today, 'completed': event.isCompleted}">
+                <p class="mb-1 event-name" [ngClass]="{'completed': event.isCompleted}">{{event.name}}</p>
+                <div>
+                    <fa-icon [icon]="faClock"></fa-icon>
+                    <span class="event-time ml-1">{{event.startHour}} - {{event.endHour}}</span>
+                </div>
+                <div>
+                    <fa-icon [icon]="faCalendar"></fa-icon>
+                    <span class="event-date mx-1">{{event.startDate | date: 'EEE, dd/MM/yyyy'}} -
+                        {{event.endDate | date: 'EEE, dd/MM/yyyy'}}</span>
+                </div>
+                <p *ngIf="event.note" class="event-note mb-0 mt-2">
+                    <fa-icon [icon]="faStickyNote"></fa-icon>
+                    {{event.note}}
+                </p>
+
+                <div class="event-status" *ngIf="event.isCompleted">
+                    <fa-icon class="success-icon" [icon]="faCheckCircle"></fa-icon>
+                    <span>
+                        Done!
+                    </span>
+                </div>
+                <div class="event-status" *ngIf="event.endDate < today && !event.isCompleted">
+                    <fa-icon class="fail-icon" [icon]="faExclamationCircle"></fa-icon>
+                    <span>
+                        Failed!
+                    </span>
+                </div>
+                <div *ngIf="!event.isCompleted" class="d-flex event-actions">
+                    <button *ngIf="event.endDate >= today" class="btn-complete" (click)="markAsCompleted(event)"
+                        placement="top" ngbTooltip="Mark as completed">
+                        <fa-icon [icon]="faCheckCircle"></fa-icon>
+                    </button>
+                    <button class="btn-delete" (click)="removeEvent(event)" placement="top" ngbTooltip="Remove">
+                        <fa-icon [icon]="faTrash"></fa-icon>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>

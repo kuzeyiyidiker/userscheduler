@@ -1,0 +1,52 @@
+<ngb-alert *ngIf="showEmptyAlert" [type]="'info'"  [dismissible]="false">Relax! There are no more tasks to complete.</ngb-alert>
+
+<table *ngIf="calendarDays">
+    <thead>
+        <th>Sunday</th>
+        <th>Monday</th>
+        <th>Tuesday</th>
+        <th>Wednesday</th>
+        <th>Thursday</th>
+        <th>Friday</th>
+        <th>Saturday</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of calendarDays | keyvalue">
+            <td *ngFor="let cell of item.value">
+                <span class="day" [ngClass]="{'active': cell.isActive}">{{cell.text}}</span>
+                <div class="events">
+                    <div class="event-calendar" *ngFor="let event of cell.events" (click)="onEventClick(event)"
+                        [ngClass]="{'completed': event.isCompleted, 'old': event.endDate < today}" [ngbPopover]="popEventCard" triggers="manual"
+                        #p1="ngbPopover" (mouseenter)="showEvent(p1, event)" (mouseleave)="p1.close()">
+                        <span class="ml-2 event-name">
+                            {{event.startHour}} - {{event.endHour}} {{event.name}}</span>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<ng-template #popEventCard let-event="event">
+    <div class="card event-popover border-0">
+        <div class="card-header">
+            Task Details
+        </div>
+        <div class="card-body">
+            <p class="event-name mb-1">{{event.name}}</p>
+            <div>
+                <fa-icon [icon]="faClock"></fa-icon>
+                <span class="event-time ml-1">{{event.startHour}} - {{event.endHour}}</span>
+            </div>
+            <div>
+                <fa-icon [icon]="faCalendar"></fa-icon>
+                <span class="event-date mx-1">{{event.startDate | date: 'EEE, MM yyyy'}} -
+                    {{event.endDate | date: 'EEE, MM yyyy'}}</span>
+            </div>
+            <p *ngIf="event.note" class="event-note mb-0 mt-2">
+                <fa-icon [icon]="faStickyNote"></fa-icon>
+                {{event.note}}
+            </p>
+        </div>
+    </div>
+</ng-template>

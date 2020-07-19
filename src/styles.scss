@@ -1,0 +1,82 @@
+/* Importing Bootstrap SCSS file. */
+@import "~bootstrap/scss/bootstrap";
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;700&family=Roboto+Condensed:ital,wght@0,400;0,700;1,300&family=Roboto:wght@300;400;700&display=swap");
+
+body {
+    font-family: "Roboto";
+    padding: 15px;
+    background: #efefef;
+    overflow-x: hidden;
+}
+
+label, .text-danger {
+    font-size: 13px;
+}
+button:focus {
+    outline: 0 !important;
+    box-shadow: none !important;
+}
+.btn-primary, .btn-danger, .btn-success {
+    color: #fff;
+    font-size: 13px;
+}
+
+.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+    cursor: not-allowed !important;
+}
+.input-group-append {
+    button {
+        width: 30px;
+        color: #178294;
+        border: 1px solid;
+        padding:3px;
+
+        &:hover {
+            color: #007bff !important;
+            background: #fff !important;
+        }
+    }
+}
+.h-100vh {
+    height: 100vh;
+}
+
+.event {
+    .event-status {
+        font-weight: bold;
+        font-size: 13px;
+        .fail-icon {
+            color: #b31c1c !important;
+        }
+        .success-icon {
+            color: #1cb349 !important;
+        }
+    }
+    .event-actions {
+        font-size: 18px;
+        position: absolute;
+        right: 5px;
+        top: 5px;
+        button {
+            background: none;
+            border: 0;
+            &:focus {
+                outline: none;
+            }
+            &:hover {
+                color: blue;
+            }
+        }
+        .btn-complete .ng-fa-icon {
+            font-size: 16px !important;
+            color: #14b12f !important;
+        }
+
+        .btn-delete .ng-fa-icon {
+            font-size: 16px !important;
+            color: #b13214 !important;
+        }
+    }
+}

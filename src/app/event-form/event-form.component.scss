@@ -1,0 +1,51 @@
+.form-group.hidden {
+  width: 0;
+  margin: 0;
+  border: none;
+  padding: 0;
+}
+.custom-day {
+  text-align: center;
+  padding: 0.185rem 0.25rem;
+  display: inline-block;
+  height: 2rem;
+  width: 2rem;
+}
+.custom-day.focused {
+  background-color: #e6e6e6;
+}
+.custom-day.range,
+.custom-day:hover {
+  background-color: rgb(2, 117, 216);
+  color: white;
+}
+.custom-day.faded {
+  background-color: rgba(2, 117, 216, 0.5);
+}
+
+.event-form {
+  input {
+    background: #f0f6f7;
+    border: 0;
+    border-radius: 4px;
+    font-size: 13px;
+  }
+  textarea {
+    border: 1px solid #f0f6f7;
+    border-radius: 5px;
+    width: 100%;
+  }
+}
+
+::ng-deep {
+  .custom-day,
+  .form-control {
+    font-size: 13px;
+  }
+  .form-control {
+    background: #f0f6f7;
+  }
+  .ngb-tp-input, .ngb-tp-hour,.ngb-tp-minute{
+    width: 45px !important;
+  }
+}
